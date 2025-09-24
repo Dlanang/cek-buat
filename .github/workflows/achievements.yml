@@ -1,0 +1,126 @@
+name: 🏆 Auto GitHub Achievement Generator
+
+on:
+  schedule:
+    # Run every day at 9 AM UTC (can be adjusted)
+    - cron: '0 9 * * *'
+  
+  workflow_dispatch:
+    inputs:
+      achievement_type:
+        description: 'Which achievement to generate'
+        required: true
+        default: 'all'
+        type: choice
+        options:
+          - all
+          - pull-shark
+          - galaxy-brain
+
+  push:
+    branches: [ main ]
+    paths:
+      - 'scripts/**'
+      - '.github/workflows/**'
+
+env:
+  GITHUB_USERNAME: ${{ github.repository_owner }}
+
+jobs:
+  generate-achievements:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: 🚀 Checkout Repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+        
+    - name: 🏗️ Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+        
+    - name: 📦 Install Dependencies
+      run: |
+        if [ -f package.json ]; then
+          npm ci
+        else
+          echo "No package.json found, using scripts directly"
+        fi
+        
+    - name: 🔧 Setup Environment
+      run: |
+        echo "GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}" >> $GITHUB_ENV
+        echo "GITHUB_USERNAME=${{ github.repository_owner }}" >> $GITHUB_ENV
+        chmod +x scripts/*.js scripts/*.sh
+        
+    - name: 🦈 Generate Pull Shark Achievement
+      if: ${{ github.event.inputs.achievement_type == 'pull-shark' || github.event.inputs.achievement_type == 'all' || github.event_name == 'schedule' }}
+      run: node scripts/pullShark.js
+      continue-on-error: true
+      
+    - name: ⏳ Wait Between Generators
+      if: ${{ github.event.inputs.achievement_type == 'all' || github.event_name == 'schedule' }}
+      run: sleep 30
+      
+    - name: 🌌 Generate Galaxy Brain Achievement
+      if: ${{ github.event.inputs.achievement_type == 'galaxy-brain' || github.event.inputs.achievement_type == 'all' || github.event_name == 'schedule' }}
+      run: node scripts/galaxyBrain.js
+      continue-on-error: true
+      
+    - name: 📊 Update Achievement Progress
+      run: |
+        # Create or update progress file
+        date_time=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+        
+        cat > achievements/progress.md << EOF
+        # Achievement Generation Progress
+        
+        Last run: $date_time
+        Triggered by: ${{ github.event_name }}
+        
+        ## 🎯 Target Achievements:
+        - 🦈 Pull Shark: Auto-generated PRs
+        - 🌌 Galaxy Brain: Discussion Q&As created
+        
+        ## 📈 Activity Summary:
+        - Repository: ${{ github.repository }}
+        - Actor: ${{ github.actor }}
+        - Run ID: ${{ github.run_id }}
+        
+        Check your profile: https://github.com/${{ github.repository_owner }}
+        EOF
+        
+    - name: 💾 Commit Progress Updates
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        
+        git add achievements/
+        if git diff --staged --quiet; then
+          echo "No changes to commit"
+        else
+          git commit -m "🏆 Update achievement progress - $(date -u +%Y-%m-%d)"
+          git push
+        fi
+      continue-on-error: true
+
+  notification:
+    needs: generate-achievements
+    runs-on: ubuntu-latest
+    if: always()
+    
+    steps:
+    - name: 🎉 Success Notification
+      if: needs.generate-achievements.result == 'success'
+      run: |
+        echo "✅ Achievement generation completed successfully!"
+        echo "🔗 Check your profile: https://github.com/${{ github.repository_owner }}"
+        
+    - name: ⚠️ Failure Notification
+      if: needs.generate-achievements.result == 'failure'
+      run: |
+        echo "❌ Achievement generation failed!"
+        echo "💡 Check the logs for details"
