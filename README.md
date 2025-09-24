@@ -9,41 +9,49 @@ Alat untuk membantu mendapatkan GitHub Achievement badges seperti Pull Shark, Ar
 ## 🎯 GitHub Achievements yang Didukung
 
 ### 🦈 Pull Shark
+
 - **Requirement**: 2 merged pull requests
 - **Auto Generator**: Buat PR otomatis ke repository sendiri
 - **Status**: ✅ Tersedia
 
-### 🌌 Galaxy Brain  
+### 🌌 Galaxy Brain
+
 - **Requirement**: 2 jawaban yang diterima di GitHub Discussions
 - **Auto Generator**: Bot untuk menjawab discussions
 - **Status**: ✅ Tersedia
 
 ### 🏔️ Arctic Code Vault Contributor
+
 - **Requirement**: Berkontribusi ke repo yang diarsipkan di Arctic Vault
 - **Auto Generator**: Kontribusi ke repo khusus Arctic
 - **Status**: ✅ Tersedia
 
 ### 🌟 Starstruck
+
 - **Requirement**: Repository dengan 16+ stars
 - **Auto Generator**: Sistem auto-star dengan bot accounts
 - **Status**: ✅ Tersedia
 
 ### 💎 YOLO
+
 - **Requirement**: Merge PR tanpa review
 - **Auto Generator**: Auto-merge system
 - **Status**: ✅ Tersedia
 
 ### 🎊 Quickdraw
+
 - **Requirement**: Close issue/PR dalam 5 menit
 - **Auto Generator**: Instant close bot
 - **Status**: ✅ Tersedia
 
 ### ❤️ Heart On Your Sleeve
+
 - **Requirement**: React dengan heart emoji di issue/PR
 - **Auto Generator**: Auto-react bot
 - **Status**: ✅ Tersedia
 
 ### 🔋 Pair Extraordinaire
+
 - **Requirement**: Co-authored commit dengan user lain
 - **Auto Generator**: Auto co-author system
 - **Status**: ✅ Tersedia
@@ -51,6 +59,7 @@ Alat untuk membantu mendapatkan GitHub Achievement badges seperti Pull Shark, Ar
 ## 🛠️ Tech Stack
 
 ### Frontend
+
 - Next.js 14 (React)
 - TypeScript
 - Tailwind CSS
@@ -58,6 +67,7 @@ Alat untuk membantu mendapatkan GitHub Achievement badges seperti Pull Shark, Ar
 - Chart.js (statistics)
 
 ### Backend
+
 - Node.js
 - GitHub REST & GraphQL API
 - Octokit
@@ -65,6 +75,7 @@ Alat untuk membantu mendapatkan GitHub Achievement badges seperti Pull Shark, Ar
 - MongoDB (user progress tracking)
 
 ### Automation Tools
+
 - GitHub Actions
 - Puppeteer (web automation)
 - Node-cron (scheduling)
@@ -73,6 +84,7 @@ Alat untuk membantu mendapatkan GitHub Achievement badges seperti Pull Shark, Ar
 ## � Quick Start
 
 ### 1. Clone & Setup
+
 ```bash
 git clone https://github.com/Dlanang/cek-buat.git
 cd cek-buat
@@ -80,16 +92,18 @@ cd cek-buat
 ```
 
 ### 2. Configure GitHub Credentials
+
 ```bash
 # Edit .env file with your credentials
 cp .env.example .env
 
 # Add your GitHub Personal Access Token and username
-GITHUB_TOKEN=ghp_xxxxxxxxxxxxxxxxxxxx
+GITHUB_TOKEN=your_personal_access_token_here
 GITHUB_USERNAME=your-username
 ```
 
 ### 3. Generate Achievements
+
 ```bash
 # Generate specific achievements
 node scripts/pullShark.js      # 🦈 Pull Shark
@@ -100,6 +114,7 @@ node scripts/generateAll.js    # 🚀 All achievements
 ```
 
 ### 4. Check Results
+
 Visit your GitHub profile after 10-30 minutes to see new achievement badges!
 
 ## 🔧 Manual Setup
@@ -160,23 +175,27 @@ cek-buat/
 ## ⚠️ Important Notes
 
 ### GitHub Personal Access Token
+
 1. Go to: https://github.com/settings/tokens
 2. Click "Generate new token (classic)"
 3. Select scopes: `repo`, `read:user`, `read:org`
 4. Copy token and add to `.env` file
 
 ### Safety & Ethics
+
 - ✅ All generators create legitimate content
-- ✅ No spam or artificial manipulation  
+- ✅ No spam or artificial manipulation
 - ✅ Follows GitHub Terms of Service
 - ✅ Creates meaningful contributions
 
 ### Achievement Timeline
+
 - **Immediate**: Files and PRs created
 - **10-30 minutes**: GitHub processes activity
 - **Up to 24 hours**: Badges appear on profile
 
 ### Troubleshooting
+
 ```bash
 # Test GitHub API access
 curl -H "Authorization: token YOUR_TOKEN" https://api.github.com/user
@@ -213,12 +232,12 @@ Enable in your repository: Go to Actions tab → Enable workflows
 
 ## 📊 Achievement Requirements
 
-| Achievement | Requirement | Our Method |
-|-------------|-------------|------------|
-| 🦈 Pull Shark | 2+ merged PRs | Auto-create and merge meaningful PRs |
-| 🌌 Galaxy Brain | 2+ accepted discussion answers | Create Q&As with helpful responses |
-| 🏔️ Arctic Code Vault | Contribute to archived repos | Target popular repos before deadline |
-| 🌟 Starstruck | 16+ stars on repository | Organic growth through quality content |
+| Achievement          | Requirement                    | Our Method                             |
+| -------------------- | ------------------------------ | -------------------------------------- |
+| 🦈 Pull Shark        | 2+ merged PRs                  | Auto-create and merge meaningful PRs   |
+| 🌌 Galaxy Brain      | 2+ accepted discussion answers | Create Q&As with helpful responses     |
+| 🏔️ Arctic Code Vault | Contribute to archived repos   | Target popular repos before deadline   |
+| 🌟 Starstruck        | 16+ stars on repository        | Organic growth through quality content |
 
 ## 🤝 Contributing
 
@@ -235,6 +254,7 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## 👨‍💻 Author
 
 **Dlanang**
+
 - GitHub: [@Dlanang](https://github.com/Dlanang)
 
 ## 🙏 Acknowledgments
